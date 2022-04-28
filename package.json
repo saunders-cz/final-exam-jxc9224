@@ -1,0 +1,11 @@
+{
+  "name": "mgis-445-final-exam",
+  "version": "1.0.0",
+  "description": "MGIS-445 Final Exam Gitpod Repo",
+  "main": "index.js",
+  "scripts": {
+    "start": "lerna exec --parallel npm run start"
+  },
+  "author": "C. Zoellick",
+  "license": "UNLICENSED"
+}

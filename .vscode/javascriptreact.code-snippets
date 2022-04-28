@@ -1,0 +1,14 @@
+{
+  "Grid Container": {
+    "prefix": "gc",
+    "body": ["<Grid container spacing={2}>", "${0}", "</Grid>"]
+  },
+  "Grid Item": {
+    "prefix": "gi",
+    "body": ["<Grid item>", "${0}", "</Grid>"]
+  },
+  "Grid Item 12 Cols": {
+    "prefix": "gi12",
+    "body": ["<Grid item xs={12}>", "${0}", "</Grid>"]
+  }
+}
