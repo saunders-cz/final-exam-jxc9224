@@ -1,11 +1,13 @@
 import React from 'react'
 import type { Page } from '../types'
 
-import AdminIcon from '@mui/icons-material/AdminPanelSettingsSharp'
 import HomeIcon from '@mui/icons-material/HomeSharp'
 import MenuIcon from '@mui/icons-material/RestaurantSharp'
 import CartIcon from '@mui/icons-material/ShoppingCartSharp'
 import CheckoutIcon from '@mui/icons-material/PointOfSaleSharp'
+import RegisterIcon from '@mui/icons-material/AppRegistrationSharp'
+import LoginIcon from '@mui/icons-material/LoginSharp'
+import AdminIcon from '@mui/icons-material/AdminPanelSettingsSharp'
 
 export const PAGE_LIST: Page[] = [
   {
@@ -40,14 +42,30 @@ export const PAGE_LIST: Page[] = [
     order: 4,
   },
   {
+    title: 'Register',
+    header: 'Account Registration',
+    element: React.lazy(() => import('./register/RegisterPage')),
+    icon: RegisterIcon,
+    path: 'register',
+    order: 5,
+  },
+  {
+    title: 'Login',
+    header: 'Account Login',
+    element: React.lazy(() => import('./login/LoginPage')),
+    icon: LoginIcon,
+    path: 'login',
+    order: 6,
+  },
+  {
     title: 'Admin',
     header: 'Admin Panel',
     element: React.lazy(() => import('./admin/AdminPage')),
     icon: AdminIcon,
     path: 'admin',
-    order: 5,
+    order: 7,
   },
-].sort((a, d) => a.order - d.order)
+]
 
 export default PAGE_LIST
 

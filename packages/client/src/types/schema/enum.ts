@@ -13,13 +13,3 @@ export enum MenuType {
   Drinks = 3,
 }
 
-export enum Allergen {
-  Eggs = 0,
-  Fish = 1,
-  Milk = 2,
-  Peanuts = 3,
-  Shellfish = 4,
-  Soy = 5,
-  TreeNuts = 6,
-  Wheat = 7,
-}

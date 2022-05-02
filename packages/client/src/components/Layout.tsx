@@ -6,11 +6,12 @@ export const Layout: React.FC = () => {
   return (
     <Container
       style={{
-        alignContent: 'center',
         display: 'block',
+        justifyContent: 'center',
         textAlign: 'center',
       }}>
       <Outlet />
     </Container>
   )
 }
+

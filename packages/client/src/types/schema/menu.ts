@@ -1,21 +1,23 @@
-import type { Allergen, MenuCategory, MenuType } from './enum'
+import type { MenuCategory, MenuType } from './enum'
 
-export interface Consumable<T extends MenuType, C extends MenuCategory> {
+export interface Item<T extends MenuType, C extends MenuCategory> {
   id: number
-  allergens: Array<Allergen>
   name: string
+  description: string
+  imagePath?: string
+  specialRequest?: string
   price: number
   vegan: boolean
   category: C
   type: T
 }
 
-export type Drink<T extends MenuType> = Consumable<T, MenuCategory.Beverage>
+export type Drink<T extends MenuType> = Item<T, MenuCategory.Beverage>
 
 export interface PrixFixe<T extends MenuType> {
-  appetizer: Consumable<T, MenuCategory.Appetizer>
-  entree: Consumable<T, MenuCategory.Entree>
-  dessert: Consumable<T, MenuCategory.Dessert>
+  appetizer: Item<T, MenuCategory.Appetizer>
+  entree: Item<T, MenuCategory.Entree>
+  dessert: Item<T, MenuCategory.Dessert>
 }
 
 export interface Order<T extends MenuType> {

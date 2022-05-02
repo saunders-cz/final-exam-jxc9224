@@ -1,8 +1,8 @@
 import React from 'react'
-import { TabPage } from '../../components'
+import { Box } from '@mui/material'
 
 export const MenuPage: React.FC = () => {
-  return <TabPage value='Menu'></TabPage>
+  return <Box className='Menu-page'></Box>
 }
 
 export default MenuPage
