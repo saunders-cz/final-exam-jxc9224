@@ -11,5 +11,5 @@
   "sqltools.useNodeRuntime": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "workbench.colorTheme": "Night Owl (No Italics)"
+  "workbench.colorTheme": "Default Light+"
 }

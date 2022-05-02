@@ -1,12 +1,9 @@
 import React from 'react'
-import { Box, Container } from '@mui/material'
+import { TabPage } from '../../components'
 
 export const AdminPage: React.FC = () => {
-  return (
-    <Box className='Admin-page'>
-      <Container></Container>
-    </Box>
-  )
+  return <TabPage value='Admin'></TabPage>
 }
 
 export default AdminPage
+

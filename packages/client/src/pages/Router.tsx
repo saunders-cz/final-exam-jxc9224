@@ -1,36 +1,61 @@
 import { Provider } from 'react-redux'
-import React, { Suspense } from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import { Box, Tab } from '@mui/material'
+import { TabContext, TabList } from '@mui/lab'
 
 import { store } from '../state'
-import { Layout } from '../components/'
-
-const AdminPage = React.lazy(() => import('./admin/AdminPage'))
-const CartPage = React.lazy(() => import('./cart/CartPage'))
-const CheckoutPage = React.lazy(() => import('./checkout/CheckoutPage'))
-const HomePage = React.lazy(() => import('./home/HomePage'))
-const MenuPage = React.lazy(() => import('./menu/MenuPage'))
+import { Layout } from '../components'
+import { PAGE_LIST } from './PageList'
+import type { Page } from '../types'
 
 const Router: React.FC = () => {
+  const [tabState, setTabState] = useState<string>('1')
+
   return (
     <Provider store={store}>
-      <Suspense
-        fallback={<Typography variant='body1'>Loading page...</Typography>}>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Layout />}>
-              <Route index element={<HomePage />} />
-              <Route path='admin' element={<AdminPage />} />
-              <Route path='cart' element={<CartPage />} />
-              <Route path='catalog' element={<MenuPage />} />
-              <Route path='checkout' element={<CheckoutPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </Suspense>
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+        <TabContext value={tabState}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList
+              onChange={(_, value: string) => setTabState(value)}
+              aria-label='navigation tabs'>
+              {PAGE_LIST.map((page, index) => {
+                const TabIcon = page.icon
+                return (
+                  <Tab
+                    icon={<TabIcon />}
+                    key={index}
+                    label={page.title}
+                    value={page.order.toString()}
+                  />
+                )
+              })}
+            </TabList>
+          </Box>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Layout />}>
+                {PAGE_LIST.map((page, index) => {
+                  const RoutePage = page.element
+                  if (page.path)
+                    return (
+                      <Route
+                        key={index}
+                        path={page.path}
+                        element={<RoutePage />}
+                      />
+                    )
+                  return <Route index key={index} element={<RoutePage />} />
+                })}
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </TabContext>
+      </Box>
     </Provider>
   )
 }
 
 export default Router
+

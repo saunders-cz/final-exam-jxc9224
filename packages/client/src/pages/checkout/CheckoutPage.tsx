@@ -1,12 +1,8 @@
 import React from 'react'
-import { Box, Container } from '@mui/material'
+import { TabPage } from '../../components'
 
 export const CheckoutPage: React.FC = () => {
-  return (
-    <Box className='Checkout-page'>
-      <Container></Container>
-    </Box>
-  )
+  return <TabPage value='Checkout'></TabPage>
 }
 
 export default CheckoutPage
