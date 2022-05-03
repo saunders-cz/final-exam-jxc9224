@@ -8,6 +8,7 @@ export const Layout: React.FC = () => {
       style={{
         display: 'block',
         justifyContent: 'center',
+        padding: 10,
         textAlign: 'center',
       }}>
       <Outlet />

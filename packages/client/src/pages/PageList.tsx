@@ -47,6 +47,7 @@ export const PAGE_LIST: Page[] = [
     element: React.lazy(() => import('./register/RegisterPage')),
     icon: RegisterIcon,
     path: 'register',
+    session: false,
     order: 5,
   },
   {
@@ -55,6 +56,7 @@ export const PAGE_LIST: Page[] = [
     element: React.lazy(() => import('./login/LoginPage')),
     icon: LoginIcon,
     path: 'login',
+    session: false,
     order: 6,
   },
   {
@@ -63,6 +65,7 @@ export const PAGE_LIST: Page[] = [
     element: React.lazy(() => import('./admin/AdminPage')),
     icon: AdminIcon,
     path: 'admin',
+    session: true,
     order: 7,
   },
 ]

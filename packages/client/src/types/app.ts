@@ -6,6 +6,7 @@ export interface Page {
   icon: React.FC | React.LazyExoticComponent<React.FC<{}>>
   order: number
   path?: string
+  session?: boolean
   title: string
 }
 

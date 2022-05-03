@@ -14,6 +14,16 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >
 
+export interface ResponseError {
+  message: string
+  path: string
+}
+
+export interface BaseResponse {
+  success?: boolean
+  errors?: ResponseError[]
+}
+
 export interface SortButtons {
   [key: string]: {
     [key: string]: string
@@ -30,19 +40,22 @@ export interface SortState {
   [key: string]: string | undefined
 }
 
-export type StateEditor<S extends object> = <K extends keyof S>(
+export type StateEditor<S> = <K extends keyof S>(
   key: K,
   value: S[K] | undefined
 ) => void
 
 export type FormChangeHandler = (event: React.ChangeEvent<any>) => void
-export type FormErrors<F extends object> = {
-  [K in keyof F]: string | undefined
+
+export type FormErrors<F> = {
+  [K in keyof Partial<F>]: string | undefined
 }
+
 export type FormSubmitHandler = (
   event: React.FormEvent<HTMLFormElement>
 ) => void
-export type FormValidationSchema<F extends object> = {
-  [K in keyof F]: (value: F[K]) => [boolean, string?]
+
+export type FormValidationSchema<F> = {
+  [K in keyof Partial<F>]: (value: F[K]) => [boolean, string?]
 }
 

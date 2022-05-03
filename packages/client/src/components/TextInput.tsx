@@ -1,55 +1,48 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   FormControl,
-  FormControlProps,
   FormHelperText,
-  Input,
+  OutlinedInput,
   InputLabel,
 } from '@mui/material'
+import { FormChangeHandler } from '../types'
 
-export interface TextInputProps extends FormControlProps {
-  id: string
+export interface TextInputProps {
+  error?: string
+  fullWidth?: boolean
+  helperText?: string
   label: string
-  helperText: string
-  validate: (value: string) => [boolean, string?]
-  onValidate: (value: string) => void
+  name: string
+  required?: boolean
+  type?: 'password' | 'text'
+  value: string
+  onFormChange: FormChangeHandler
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
-  id,
+  name,
+  type,
+  error,
   label,
+  value,
+  required,
+  fullWidth,
   helperText,
-  validate,
-  onValidate,
-  ...formControlProps
+  onFormChange,
 }) => {
-  const [errorState, setErrorState] = useState<string>()
-  const [valueState, setValueState] = useState<string>('')
   return (
-    <FormControl {...formControlProps} error={!!errorState}>
-      <InputLabel htmlFor={`${id}-input`}>{label}</InputLabel>
-      <Input
+    <FormControl error={!!error} fullWidth={fullWidth} required={required}>
+      <InputLabel htmlFor={name}>{label}</InputLabel>
+      <OutlinedInput
         fullWidth
-        id={`${id}-input`}
-        type='text'
-        aria-describedby={`${id}-text`}
-        value={valueState}
-        onChange={(event) => {
-          event.preventDefault()
-          const value = event.target.value
-          const [isValid, error] = validate(value)
-          setTimeout(() => {
-            if (isValid) {
-              setTimeout(() => setErrorState(undefined), 0)
-              onValidate(value)
-            } else setErrorState(error!)
-          }, 0)
-          setValueState(value)
-        }}
+        name={name}
+        label={label}
+        type={type ?? 'text'}
+        aria-describedby={`${name}-text`}
+        value={value}
+        onChange={onFormChange}
       />
-      <FormHelperText id={`${id}-text`}>
-        {errorState ?? helperText}
-      </FormHelperText>
+      <FormHelperText id={`${name}-text`}>{error ?? helperText}</FormHelperText>
     </FormControl>
   )
 }
