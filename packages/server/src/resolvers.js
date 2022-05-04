@@ -64,20 +64,19 @@ export default {
   },
 
   MenuCategory: {
-    Alcohol: 0,
-    Appetizer: 1,
-    Beverage: 2,
-    Dessert: 3,
-    Entree: 4,
+    Alcohol: 'Alcohol',
+    Appetizer: 'Appetizer',
+    Beverage: 'Beverage',
+    Dessert: 'Dessert',
+    Entree: 'Entree',
   },
 
   MenuType: {
-    Brunch: 0,
-    Dessert: 1,
-    Dinner: 2,
-    Drinks: 3,
+    Brunch: 'Brunch',
+    Dessert: 'Dessert',
+    Dinner: 'Dinner',
+    Drinks: 'Drinks',
   },
 
   DateTime: DateTimeResolver,
 }
-

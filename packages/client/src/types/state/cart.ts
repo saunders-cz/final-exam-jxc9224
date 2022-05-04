@@ -1,9 +1,10 @@
+import { Item } from '../schema'
+
 export interface CartItem {
-  menuItem: object
+  menuItem: Item
   quantity: number
 }
 
 export interface CartState {
   items: CartItem[]
 }
-

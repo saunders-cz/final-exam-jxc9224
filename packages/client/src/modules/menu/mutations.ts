@@ -3,7 +3,16 @@ import { gql } from '@apollo/client'
 export const CREATE_ITEM = gql`
   mutation CREATE_ITEM($input: CreateItemInput!) {
     result: createItem(input: $input) {
-      item
+      item {
+        id
+        name
+        description
+        imagePath
+        price
+        vegan
+        category
+        type
+      }
       success
     }
   }
@@ -24,4 +33,3 @@ export const DELETE_ITEM = gql`
     }
   }
 `
-

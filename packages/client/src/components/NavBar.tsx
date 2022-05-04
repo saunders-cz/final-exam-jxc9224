@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Box, BoxProps, Tab, Tabs } from '@mui/material'
-import { useAppSelector } from '../state'
+import LogoutIcon from '@mui/icons-material/LogoutSharp'
+import { useAppDispatch, useAppSelector } from '../state'
 import type { Page } from '../types'
 
 export interface NavBarProps extends BoxProps {
@@ -9,16 +10,18 @@ export interface NavBarProps extends BoxProps {
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ pages, ...boxProps }) => {
+  const location = useLocation()
   const navigate = useNavigate()
-  const [tabState, setTabState] = useState<Page>(pages[0])
 
-  const changeTab = (event: React.SyntheticEvent, value: Page) => {
-    setTimeout(() => setTabState(value), 0)
-    navigate(value.path ?? '/')
-  }
-
+  const dispatch = useAppDispatch()
   const session = useAppSelector((state) => state.session)
   useEffect(() => {}, [session, session.user])
+
+  const [tab, setTab] = useState<Page>(pages[0])
+  useEffect(() => {
+    const page = pages.find((val) => location.pathname === `/${val.path ?? ''}`)
+    if (page && page.order !== tab.order) setTab(page)
+  }, [location, navigate, pages, tab, setTab])
 
   return (
     <Box
@@ -28,32 +31,38 @@ export const NavBar: React.FC<NavBarProps> = ({ pages, ...boxProps }) => {
       }}
       {...boxProps}>
       <Box>
-        <Tabs
-          centered
-          value={tabState}
-          onChange={changeTab}
-          aria-label='navigation tabs'>
+        <Tabs centered aria-label='navigation tabs' value={tab.order}>
           {pages
-            .filter((page) => {
-              if (page.session === undefined) return true
-              return page.session ? !!session.user : !session.user
-            })
             .sort((a, d) => a.order - d.order)
-            .map((page, index) => {
+            .map((page) => {
               const TabIcon = page.icon
+              const visible: boolean =
+                page.session === undefined ||
+                (page.session ? !!session.user : !session.user)
               return (
                 <Tab
                   icon={<TabIcon />}
-                  key={index}
+                  key={page.order}
                   label={page.title}
-                  value={page}
+                  value={page.order}
+                  onClick={() => navigate(page.path ?? '/')}
+                  sx={!visible ? { display: 'none' } : {}}
                 />
               )
             })}
+          {!!session.user && (
+            <Tab
+              icon={<LogoutIcon />}
+              label='Logout'
+              value={pages.length + 1}
+              onClick={() =>
+                dispatch({ type: 'session/logout' }) && navigate('/')
+              }
+            />
+          )}
         </Tabs>
       </Box>
       <Box></Box>
     </Box>
   )
 }
-

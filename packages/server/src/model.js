@@ -14,10 +14,11 @@ Item.init(
     },
     imagePath: { type: DataTypes.STRING, allowNull: true },
     name: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.FLOAT, allowNull: false },
     vegan: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
-    category: { type: DataTypes.INTEGER, allowNull: false },
-    type: { type: DataTypes.INTEGER, allowNull: false },
+    category: { type: DataTypes.STRING, allowNull: false },
+    type: { type: DataTypes.STRING, allowNull: false },
   },
   {
     sequelize,
@@ -39,7 +40,6 @@ User.init(
 )
 
 await sequelize.sync({ force: true })
-//await Book.bulkCreate(books)
+//await Item.bulkCreate(items)
 
 export { Item, User }
-

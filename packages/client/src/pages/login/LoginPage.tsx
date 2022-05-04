@@ -39,19 +39,16 @@ export const LoginPage: React.FC = () => {
           password: values.password,
         },
       }).then((result) => {
-        console.log(result)
         if (result.data && result.data.user) {
-          const { id, email, password, firstName, lastName, newsletter } =
-            result.data.user
           dispatch({
             type: 'session/login',
             payload: {
-              id: id,
-              email: email,
-              password: password,
-              firstName: firstName,
-              lastName: lastName,
-              newsletter: newsletter,
+              id: result.data.user.id,
+              email: result.data.user.email,
+              password: result.data.user.password,
+              firstName: result.data.user.firstName,
+              lastName: result.data.user.lastName,
+              newsletter: result.data.user.newsletter,
             },
           })
           alert('Success')
@@ -130,4 +127,3 @@ export const LoginPage: React.FC = () => {
 }
 
 export default LoginPage
-

@@ -1,17 +1,15 @@
 import React from 'react'
 import { Box, BoxProps, Button, ButtonGroup, Divider } from '@mui/material'
-import type { SortButtons, SortFunctions, SortState } from '../types'
+import type { SortButtons, SortState } from '../types'
 
 export interface SortButtonGroupProps extends BoxProps {
   sortButtons: SortButtons
-  sortFunctions: SortFunctions<unknown>
   sortState: SortState
   setSortState: (value: SortState) => void
 }
 
 export const SortButtonGroup: React.FC<SortButtonGroupProps> = ({
   sortButtons,
-  sortFunctions,
   sortState,
   setSortState,
   ...boxProps
@@ -50,4 +48,3 @@ export const SortButtonGroup: React.FC<SortButtonGroupProps> = ({
     </Box>
   )
 }
-

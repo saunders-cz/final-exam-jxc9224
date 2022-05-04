@@ -44,20 +44,16 @@ export const RegisterPage: React.FC = () => {
           },
         },
       }).then((result) => {
-        console.log(result)
-        const { data } = result
-        if (data && data.result && data.result.success) {
-          const { id, email, password, firstName, lastName, newsletter } =
-            data.result.user
+        if (result.data && result.data.result && result.data.result.success) {
           dispatch({
             type: 'session/login',
             payload: {
-              id: id,
-              email: email,
-              password: password,
-              firstName: firstName,
-              lastName: lastName,
-              newsletter: newsletter,
+              id: result.data.result.user.id,
+              email: result.data.result.user.email,
+              password: result.data.result.user.password,
+              firstName: result.data.result.user.firstName,
+              lastName: result.data.result.user.lastName,
+              newsletter: result.data.result.user.newsletter,
             },
           })
           alert('Success')
@@ -160,4 +156,3 @@ export const RegisterPage: React.FC = () => {
 }
 
 export default RegisterPage
-

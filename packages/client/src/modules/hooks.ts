@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from 'react'
+import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import type {
   StateEditor,
   FormValidationSchema,
@@ -16,33 +16,35 @@ export const useStateEditor = <S>(
   return [state, editState, setState]
 }
 
+const changeEventKeyValue = (event: ChangeEvent<any>): [any, any] => {
+  const key = event.target.name
+  switch (event.target.type) {
+    case 'checkbox':
+    case 'radio':
+      return [key, event.target.checked]
+    default:
+      return [key, event.target.value]
+  }
+}
+
 export const useFormState = <F>(params: {
   initialValues: F
-  validationSchema: FormValidationSchema<F>
+  validationSchema?: FormValidationSchema<F>
   onSubmit: (values: F) => void | Promise<void>
   onFailure?: (errors: FormErrors<F>) => void | Promise<void>
 }): [F, FormErrors<F>, FormChangeHandler, FormSubmitHandler] => {
-  const initialErrors = {} as FormErrors<F>
   const { initialValues, validationSchema, onSubmit, onFailure } = params
-
-  const [errors, editError] = useStateEditor(initialErrors)
   const [values, editValue] = useStateEditor<F>(initialValues)
+
+  const initialErrors = {} as FormErrors<F>
+  const [errors, editError] = useStateEditor<FormErrors<F>>(initialErrors)
 
   const handleChange: FormChangeHandler = (event) => {
     event.preventDefault()
-    let value: any
-    switch (event.target.type) {
-      case 'radio':
-      case 'checkbox':
-        value = event.target.checked
-        break
-      default:
-        value = event.target.value
-    }
-    const key = event.target.name
-    if (key in validationSchema) {
-      const [isValid, error] =
-        validationSchema[key as keyof typeof validationSchema](value)
+    const [key, value] = changeEventKeyValue(event)
+    if (validationSchema && key in validationSchema) {
+      const validate = validationSchema[key as keyof typeof validationSchema]
+      const [isValid, error] = validate(value)
       if (isValid) {
         setTimeout(() => editError(key, undefined), 0)
         editValue(key, value)
@@ -66,4 +68,3 @@ export const useFormState = <F>(params: {
 
   return [values, errors, handleChange, handleSubmit]
 }
-
