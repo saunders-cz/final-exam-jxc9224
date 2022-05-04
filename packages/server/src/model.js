@@ -39,7 +39,6 @@ User.init(
   }
 )
 
-await sequelize.sync({ force: true })
-//await Item.bulkCreate(items)
+await sequelize.sync()
 
 export { Item, User }
