@@ -1,0 +1,15 @@
+{
+    "web": {
+        "client_id": "318939039716-qa0epe2gae01akgjh46e2n1efrd7gn07.apps.googleusercontent.com",
+        "project_id": "starlit-booster-348603",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "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",
+        "javascript_origins": [
+            "https://3000-saunderscz-finalexamjxc-f71fxu0shot.ws-us43.gitpod.io",
+            "https://4000-saunderscz-finalexamjxc-f71fxu0shot.ws-us43.gitpod.io",
+            "https://8080-saunderscz-finalexamjxc-f71fxu0shot.ws-us43.gitpod.io"
+        ]
+    }
+}
